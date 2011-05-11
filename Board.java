@@ -34,9 +34,52 @@ public class Board {
                 } else {
                     System.out.print("O ");
                 }
-
             }
+            System.out.println();
         }
+    }
+    /*
+     * @return 0 if no winner 1 if x is winner 2 if O is winner
+     */
+
+    public int declareWinner() {
+        int ans = 0;
+        if (diagonalWinner() || row2Winner() || vert2Winner())
+            ans = gameboard[1][1];
+        else if (row1Winner() || vert1Winner())
+            ans = gameboard[0][0];
+        else if (row3Winner() || vert3Winner())
+            ans = gameboard[2][2];
+        return ans;
+    }
+    
+    private boolean diagonalWinner(){
+        return ((gameboard[0][0] == gameboard[1][1] && gameboard[1][1] == gameboard[2][2]) || 
+                (gameboard[2][0] == gameboard[1][1] && gameboard[1][1] == gameboard[0][2])) &&
+                gameboard[1][1] != 0;
+    }
+    
+    private boolean row1Winner(){
+        return gameboard[0][0] == gameboard[0][1] && gameboard[0][1] == gameboard[0][2] && gameboard[0][1] != 0;
+    }
+    
+    private boolean row2Winner(){
+        return gameboard[1][0] == gameboard[1][1] && gameboard[1][1] == gameboard[1][2] && gameboard[1][1] != 0;
+    }
+    
+    private boolean row3Winner(){
+        return gameboard[2][0] == gameboard[2][1] && gameboard[2][1] == gameboard[2][2] && gameboard[2][1] != 0;
+    }
+    
+    private boolean vert1Winner(){
+        return gameboard[0][0] == gameboard[1][0] && gameboard[1][0] == gameboard[2][0] && gameboard[1][0] != 0;
+    }
+    
+    private boolean vert2Winner(){
+        return gameboard[0][1] == gameboard[1][1] && gameboard[1][1] == gameboard[2][1] && gameboard[1][1] != 0;
+    }
+    private boolean vert3Winner(){
+        return gameboard[0][2] == gameboard[1][2] && gameboard[1][2] == gameboard[2][2] && gameboard[1][2] != 0;
     }
 
     public boolean canMove(int x, int y) {
